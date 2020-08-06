@@ -8,6 +8,8 @@ class Dashboard extends Component {
         this.state = {
             error: null,
             isLoaded: false,
+            hasAlerts: false,
+            alerts: [],
             resp: []
         }
     }
@@ -19,6 +21,8 @@ class Dashboard extends Component {
                 (result) => {
                     this.setState({
                         isLoaded: true,
+                        hasAlerts: true,
+                        alerts: ["It's the end of the world as we know it"],
                         resp: result
                     });
                 },
@@ -31,6 +35,23 @@ class Dashboard extends Component {
             )
     }
 
+    showAlerts(alerts) {
+
+        if (alerts != null && alerts.length > 0) {
+
+            let alertMessages = [];
+            // alerts.each(alerts, function (index, alert) {
+            //     alertMessages.push(alert.title + ": " + alert.description);
+            // });
+
+            // divAlerts.text(alertMessages.join(" | "));
+            // divAlerts.show();
+        }
+        else {
+            // divAlerts.hide();
+        }
+    }
+
     render() {
         const {error, isLoaded, resp} = this.state;
 
@@ -40,23 +61,29 @@ class Dashboard extends Component {
             return <div>Fetching results...</div>
         } else
             return <div>
-                <div id="alerts" className="marquee"/>
-                <table id="header" cellSpacing="20">
+                <div id="alerts" className="marquee">{this.state.alerts[0]}</div>
+                <table id="header" cellSpacing="20" style={{margin: "-30px -10px -40px -30px"}}>
                     <tr>
                         <td><i id="currentIcon"></i></td>
-                        <td>
+                        <td style={{"vertical-align": "middle", "white-space": "nowrap"}}>
                             <table className="observations">
                                 <tr>
                                     <td id="currentTemp" colSpan="2"></td>
-                                    <td className="legend top">prob.</td>
+                                    <td className="legend top" style={{"padding-left": "15px"}}>prob.</td>
                                     <td className="top"><span id="currentPrec"></span>%</td>
                                 </tr>
                                 <tr>
                                     <td id="apparentTempLabel" className="observations legend bottom"></td>
                                     <td id="currentApparentTemp"></td>
-                                    <td id="windLabel" className="observations legend bottom"></td>
+                                    <td id="windLabel" className="observations legend bottom"
+                                        style={{"padding-left": "15px"}}></td>
                                     <td id="currentWind"></td>
-                                    <td id="humidityLabel" className="observations legend bottom">rh
+                                    <td id="humidityLabel" className="observations legend bottom"
+                                        style={{
+                                            "padding-left": "15px",
+                                            "padding-right": "5px",
+                                            "text-align": "right"
+                                        }}>rh
                                     </td>
                                     <td id="currentHumidity"></td>
                                 </tr>
