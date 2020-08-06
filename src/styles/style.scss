@@ -1,0 +1,272 @@
+﻿body, html {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    overflow:hidden;
+}
+
+html {
+    font-family: sans-serif;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+}
+
+body {
+    font-size: 16px;
+}
+
+.marquee {
+    width: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+    white-space: nowrap;
+    box-sizing: border-box;
+    animation: marquee 50s linear infinite;
+}
+
+.marquee:hover {
+    animation-play-state: paused;
+}
+
+@keyframes marquee {
+    0% {text-indent: 27.5em;}
+    100% {text-indent: -105em;}
+}
+
+[class*=" diw-"]:before,
+[class^=diw-]:before,
+[data-icon]:before {
+    font-family: dripicons-weather !important;
+    font-style: normal !important;
+    font-weight: 400 !important;
+    font-variant: normal !important;
+    text-transform: none !important;
+    speak: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+@font-face 
+{
+    font-family: dripicons-weather;
+    //src: url(fonts/dripicons-weather.eot);
+    //src: url(fonts/dripicons-weather.eot?#iefix) format("embedded-opentype"),url(fonts/dripicons-weather.woff) format("woff"),url(fonts/dripicons-weather.ttf) format("truetype"),url(fonts/dripicons-weather.svg#dripicons-weather) format("svg");
+    font-weight: 400;
+    font-style: normal;
+}
+
+[data-icon]:before 
+{
+    content: attr(data-icon);
+}
+
+#alerts
+{
+    padding: 5px;
+    display: none;
+}
+
+.observations td
+{
+    vertical-align: bottom;
+}
+
+.observations .legend {
+    font-size: 12px;
+}
+.observations .bottom {
+    line-height: 22px;
+}
+
+.observations .top
+{
+    line-height: 36px;
+}
+
+#currentSummary {
+    width: 100%;
+    vertical-align: top;
+    padding-top:25px;
+    font-size:20px;
+}
+
+#currentIcon {
+    width: 128px;
+    height: 128px;
+}
+
+#currentTemp {
+    font-size: 48px;
+	text-align:right;
+	padding-right:0;
+}
+
+#currentApparentTemp {
+    font-size: 28px;
+    text-align: right;
+	padding-right:4px;
+}
+
+#currentHumidity {
+    font-size: 28px;
+}
+
+#currentHumidity span {
+    font-size: 16px;
+}
+
+#currentPrec {
+    font-size: 32px;
+}
+
+#currentWind span {
+    font-size: 32px;
+}
+
+.currentDateTime {
+    text-align: right;
+    width: 100%;
+    vertical-align: top;
+    padding-top: 25px;
+}
+
+.currentDateTime span {
+    white-space: nowrap;
+    text-align: right;
+    width: 100%;
+}
+
+#currentDate {
+    font-size: 24px;
+}
+
+#currentTime {
+    font-size: 60px;
+}
+
+.vertical-text 
+{
+    transform: rotate(90deg);
+    transform-origin: left top 0;
+}
+
+.vertical 
+{
+    -webkit-transform: rotate(270deg);
+    -moz-transform: rotate(270deg);
+    -o-transform: rotate(270deg);
+    -ms-transform: rotate(270deg);
+    transform: rotate(270deg);
+    padding-bottom: 10px;
+    font-size: 12px;
+}
+
+#forecast 
+{
+    border-spacing: 5px 0;
+    margin: 20px 5px 0 5px;
+}
+#forecast th 
+{
+    border-radius: 10px 10px 0 0;
+    padding-top: 5px;
+}
+
+#forecast th:first-child 
+{
+        
+    border-radius: 7px 7px 0 0;
+}
+
+#forecast td:first-child 
+{
+    padding-left: 5px;
+    padding-right: 0;
+    margin-right:-10px;
+}
+
+#forecast th,
+#forecast td 
+{
+    text-align: center;
+}
+
+#forecast th:first-child,
+#forecast td:first-child 
+{
+    width: 10px !important;
+}
+
+#forecast tr:last-child td 
+{
+    border-radius: 0 0 10px 10px;
+    padding-bottom: 5px;
+}
+
+#forecast tr:last-child td:first-child 
+{
+    border-radius: 0 0 7px 7px;
+}
+
+#forecastMaxTemps td {
+    font-size: 24px;
+    padding-top: 5px;
+}
+
+#tableHourlyForecast {
+    width: calc(100% - 20px);
+    width: -moz-calc(100% - 20px);
+    width: -webkit-calc(100% - 20px);
+	margin: 20px 0 0 10px;
+}
+
+#tableHourlyForecast th,
+#tableHourlyForecast td {
+    text-align: center;
+    padding: 0 5px 0 5px;
+}
+
+#tableHourlyForecast th:first-child {
+    border-top-left-radius: 10px;
+}
+
+#tableHourlyForecast th:last-child {
+    border-top-right-radius: 10px;
+}
+
+#tableHourlyForecast tr:last-child td:first-child {
+    border-bottom-left-radius: 10px;
+}
+
+#tableHourlyForecast tr:last-child td:last-child {
+    border-bottom-right-radius: 10px;
+}
+
+#tableHourlyForecast .icon {
+    width: 32px !important;
+    height: 32px !important;
+}
+
+#tableHourlyForecast #hourlyPrec span,
+#tableHourlyForecast #hourlyHumidity span {
+    font-size: 10px;
+}
+
+.wind {
+    display: inline-block;
+}
+
+.windContainer {
+    padding-left:3px;
+}
+
+.icon {
+    display: inline-block;
+    background-repeat: no-repeat;
+    padding: 0;
+    margin: 0;
+    width: 64px;
+    height: 64px;
+}
