@@ -1,5 +1,7 @@
 import React, {Component} from "react";
 import {api_url, Constants, getDegreeSymbol, getWindSpeedSymbol, IconMap} from "./config" ;
+import ScrollingAlerts from "./components/ScrollingAlerts";
+import CurrentBoard from "./components/CurrentBoard";
 
 class Dashboard extends Component {
 
@@ -106,7 +108,7 @@ class Dashboard extends Component {
     }
 
     render() {
-        const {error, isLoaded, resp, alerts, current} = this.state;
+        const {error, isLoaded, resp, hasAlerts, alerts, current} = this.state;
 
         if (error) {
             return <div>Error contacting API</div>
@@ -114,60 +116,8 @@ class Dashboard extends Component {
             return <div>Fetching results...</div>
         } else
             return <div>
-                <div id="alerts" className="marquee">{alerts[0]}</div>
-                <table cellSpacing={1}
-                       style={{margin: "5px 35px 15px 0px"}}
-                >
-                    <tr>
-                        <td>
-                            <img id="currentIcon" src={current.icon} alt="Current icon"/>
-                        </td>
-                        <td style={{verticalAlign: "middle", whiteSpace: "nowrap"}}>
-                            <table className="observations">
-                                <tr>
-                                    <td id="currentTemp" colSpan="2">{current.temp}</td>
-                                    <td className="legend top" style={{paddingLeft: "15px"}}>prob.</td>
-                                    <td className="top">
-                                        <span style={{float: 'left', marginLeft: '10px'}}>
-                                            <span id="currentPrec">{current.chanceOfRain}</span>%
-                                        </span>
-                                    </td>
-                                    <td className="legend top" style={{paddingLeft: "15px"}}>humidity</td>
-                                    <td className="top">
-                                        <span style={{float: 'left', marginLeft: '10px'}}>
-                                            <span id="currentHumidity">{current.humidity}%</span>
-                                        </span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td id="apparentTempLabel" className="observations legend bottom">feels like</td>
-                                    <td id="currentApparentTemp">{current.feelsLike}</td>
-                                    <td id="windLabel" className="observations legend bottom"
-                                        style={{paddingLeft: "15px"}}>wind
-                                    </td>
-                                    <td id="currentWind">
-                                        <span className="windContainer">{current.windSpeed}
-                                            <span className="wind" style={current.windStyle}>↑</span>
-                                        </span>
-                                    </td>
-                                    <td id="pressureLabel" className="observations legend bottom"
-                                        style={{paddingLeft: "15px"}}>pressure
-                                    </td>
-                                    <td id="currentPressure" className="observations">
-                                        <span style={{float: 'left', marginLeft: '10px'}}>{current.pressure} hPa</span>
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                        <td id="currentSummary">{current.summary}</td>
-                        <td>
-                            <span className="currentDateTime">
-                                <span id="currentDate">{current.date}</span><br/>
-                                <span id="currentTime">{current.time}</span>
-                            </span>
-                        </td>
-                    </tr>
-                </table>
+                <ScrollingAlerts hasAlerts={hasAlerts} alerts={alerts}/>
+                <CurrentBoard current={current} />
                 <table id="tableHourlyForecast" cellSpacing="0">
                     <tr id="hourlyHours"></tr>
                     <tr id="hourlyIcons"></tr>
