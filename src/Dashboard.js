@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {api_url} from "./config" ;
+import {api_url, Constants, DegreeSymbols, getDegreeSymbol, getWindSpeedSymbol, IconMap} from "./config" ;
 
 class Dashboard extends Component {
 
@@ -10,7 +10,8 @@ class Dashboard extends Component {
             isLoaded: false,
             hasAlerts: false,
             alerts: [],
-            resp: []
+            resp: [],
+            currentIcon: null
         }
     }
 
@@ -23,7 +24,14 @@ class Dashboard extends Component {
                         isLoaded: true,
                         hasAlerts: true,
                         alerts: ["It's the end of the world as we know it"],
-                        resp: result
+                        resp: result,
+                        current: {
+                            icon: this.getCurrentIcon(result.current.weather),
+                            temp: this.getFormattedTemp(result.current.temp),
+                            feelsLike: this.getFormattedTemp(result.current.feels_like),
+                            chanceOfRain: this.getChanceOfRain(result.current),
+                            windSpeed: this.getFormattedWindSpeed(result.current.wind_speed)
+                        }
                     });
                 },
                 (error) => {
@@ -35,25 +43,33 @@ class Dashboard extends Component {
             )
     }
 
-    showAlerts(alerts) {
-
-        if (alerts != null && alerts.length > 0) {
-
-            let alertMessages = [];
-            // alerts.each(alerts, function (index, alert) {
-            //     alertMessages.push(alert.title + ": " + alert.description);
-            // });
-
-            // divAlerts.text(alertMessages.join(" | "));
-            // divAlerts.show();
-        }
-        else {
-            // divAlerts.hide();
+    getCurrentIcon(currentWeather) {
+        const weatherMainName = currentWeather.main;
+        if (weatherMainName in IconMap) {
+            return IconMap.get(weatherMainName);
+        } else {
+            return IconMap.notFound;
         }
     }
 
+    getChanceOfRain(current) {
+        if ('pop' in current) {
+            return current.pop;
+        } else {
+            return 0;
+        }
+    }
+
+    getFormattedTemp(temp) {
+        return Math.round(temp) + getDegreeSymbol(Constants.units);
+    }
+
+    getFormattedWindSpeed(wind_speed) {
+        return Math.round(wind_speed) + getWindSpeedSymbol(Constants.units);
+    }
+
     render() {
-        const {error, isLoaded, resp} = this.state;
+        const {error, isLoaded, resp, alerts, current} = this.state;
 
         if (error) {
             return <div>Error contacting API</div>
@@ -61,23 +77,28 @@ class Dashboard extends Component {
             return <div>Fetching results...</div>
         } else
             return <div>
-                <div id="alerts" className="marquee">{this.state.alerts[0]}</div>
-                <table id="header" cellSpacing="20" style={{margin: "-30px -10px -40px -30px"}}>
+                <div id="alerts" className="marquee">{alerts[0]}</div>
+                <table cellSpacing={20}
+                    // style={{margin: "-30px -10px -40px -30px"}}
+                >
                     <tr>
-                        <td><i id="currentIcon"></i></td>
+                        <td>{current.icon}
+                            <img src={current.icon} alt="Current icon"/>
+                        </td>
                         <td style={{"vertical-align": "middle", "white-space": "nowrap"}}>
                             <table className="observations">
                                 <tr>
-                                    <td id="currentTemp" colSpan="2"></td>
-                                    <td className="legend top" style={{"padding-left": "15px"}}>prob.</td>
-                                    <td className="top"><span id="currentPrec"></span>%</td>
+                                    <td id="currentTemp" colSpan="2">{current.temp}</td>
+                                    <td className="legend top" style={{"padding-left": "15px"}}>prob. of rain</td>
+                                    <td className="top"><span id="currentPrec">{current.chanceOfRain}</span>%</td>
                                 </tr>
                                 <tr>
-                                    <td id="apparentTempLabel" className="observations legend bottom"></td>
-                                    <td id="currentApparentTemp"></td>
+                                    <td id="apparentTempLabel" className="observations legend bottom">feels like</td>
+                                    <td id="currentApparentTemp">{current.feelsLike}</td>
                                     <td id="windLabel" className="observations legend bottom"
-                                        style={{"padding-left": "15px"}}></td>
-                                    <td id="currentWind"></td>
+                                        style={{"padding-left": "15px"}}>wind
+                                    </td>
+                                    <td id="currentWind"><span>{current.windSpeed}</span></td>
                                     <td id="humidityLabel" className="observations legend bottom"
                                         style={{
                                             "padding-left": "15px",
@@ -118,6 +139,7 @@ class Dashboard extends Component {
                 </table>
             </div>
     }
+
 }
 
 export default Dashboard;
