@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import {Constants, getDegreeSymbol, getWindSpeedSymbol, IconMap} from "../config";
+import DateTimeSection from "./DateTimeSection";
 
 class CurrentBoard extends Component {
     constructor(props) {
@@ -16,9 +17,7 @@ class CurrentBoard extends Component {
                 windStyle: this.getWindDegStyle(current.wind_deg),
                 humidity: current.humidity,
                 pressure: current.pressure,
-                summary: "Partly cloudy throughout the day. Light rain on Sunday through Thursday.",
-                date: this.getFormattedDate(),
-                time: this.getFormattedTime()
+                summary: "Partly cloudy throughout the day. Light rain on Sunday through Thursday."
             }
         }
     }
@@ -26,7 +25,6 @@ class CurrentBoard extends Component {
     getCurrentIcon(currentWeather) {
         const weatherMainName = currentWeather[0].main;
         if (weatherMainName in IconMap) {
-            console.log(weatherMainName);
             return IconMap['weatherMainName'];
         } else {
             return IconMap.notFound;
@@ -53,20 +51,6 @@ class CurrentBoard extends Component {
 
     getWindDegStyle(wind_deg) {
         return {transform: `rotate(${wind_deg}deg)`}
-    }
-
-    getFormattedDate() {
-        const now = new Date();
-        const options = {weekday: 'long', month: 'long', day: 'numeric'};
-        return new Intl.DateTimeFormat('en-GB', options).format(now);
-    }
-
-    getFormattedTime() {
-        const now = new Date();
-        const options = {
-            hour: 'numeric', minute: 'numeric',
-        };
-        return new Intl.DateTimeFormat('en-GB', options).format(now);
     }
 
     render() {
@@ -116,10 +100,7 @@ class CurrentBoard extends Component {
                 </td>
                 <td id="currentSummary">{current.summary}</td>
                 <td>
-                    <span className="currentDateTime">
-                        <span id="currentDate">{current.date}</span><br/>
-                        <span id="currentTime">{current.time}</span>
-                    </span>
+                    <DateTimeSection />
                 </td>
             </tr>
         </table>
