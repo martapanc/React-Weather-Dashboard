@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "build",
+    "public": "./build",
     "site": "weather-forecast-dashboard",
     "ignore": [
       "firebase.json",
