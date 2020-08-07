@@ -103,7 +103,7 @@ body {
 	padding-right:0;
 }
 
-#currentApparentTemp {
+#currentApparentTemp, #currentPressure {
     font-size: 28px;
     text-align: right;
 	padding-right:4px;
@@ -114,7 +114,7 @@ body {
 }
 
 #currentHumidity span {
-    font-size: 16px;
+    font-size: 28px;
 }
 
 #currentPrec {
@@ -144,6 +144,7 @@ body {
 
 #currentTime {
     font-size: 60px;
+    float: right;
 }
 
 .vertical-text 

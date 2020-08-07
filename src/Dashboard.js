@@ -39,7 +39,12 @@ class Dashboard extends Component {
                             feelsLike: this.getFormattedTemp(result.current.feels_like),
                             chanceOfRain: this.getChanceOfRain(result.current),
                             windSpeed: this.getFormattedWindSpeed(result.current),
-                            windStyle: this.getWindDegStyle(result.current.wind_deg)
+                            windStyle: this.getWindDegStyle(result.current.wind_deg),
+                            humidity: result.current.humidity,
+                            pressure: result.current.pressure,
+                            summary: "Partly cloudy throughout the day. Light rain on Sunday through Thursday.",
+                            date: this.getFormattedDate(),
+                            time: this.getFormattedTime()
                         }
                     });
                     this.intervalID = setTimeout(this.fetchData.bind(this), Constants.refresh);
@@ -52,34 +57,6 @@ class Dashboard extends Component {
                 }
             )
     };
-
-    // async fetchData() {
-    //     try {
-    //         const rs = await fetch(api_url);
-    //         const result = await rs.json();
-    //
-    //         console.log(result.current.dt);
-    //
-    //         this.setState({
-    //             isLoaded: true,
-    //             hasAlerts: true,
-    //             alerts: ["It's the end of the world as we know it"],
-    //             resp: result,
-    //             current: {
-    //                 icon: this.getCurrentIcon(result.current.weather),
-    //                 temp: this.getFormattedTemp(result.current.temp),
-    //                 feelsLike: this.getFormattedTemp(result.current.feels_like),
-    //                 chanceOfRain: this.getChanceOfRain(result.current),
-    //                 windSpeed: this.getFormattedWindSpeed(result.current.wind_speed)
-    //             }
-    //         });
-    //
-    //         this.intervalID = setTimeout(this.fetchData.bind(this), 10000);
-    //
-    //     } catch (e) {
-    //         console.log(e);
-    //     }
-    // }
 
     getCurrentIcon(currentWeather) {
         const weatherMainName = currentWeather[0].main;
@@ -106,12 +83,26 @@ class Dashboard extends Component {
     getFormattedWindSpeed(current) {
         return <span>
             {Math.round(current.wind_speed) + getWindSpeedSymbol(Constants.units)}
-            {/*<span className="windDeg" style={{transform: `rotate(${current.wind_deg}deg)`, transformOrigin: 'right top'}}>↑</span>*/}
         </span>
     }
 
     getWindDegStyle(wind_deg) {
         return {transform: `rotate(${wind_deg}deg)`}
+    }
+
+    getFormattedDate() {
+        const now = new Date();
+        const options = {weekday: 'long', month: 'long', day: 'numeric'};
+        return new Intl.DateTimeFormat('en-GB', options).format(now);
+    }
+
+    getFormattedTime() {
+        const now = new Date();
+
+        const options = {
+            hour: 'numeric', minute: 'numeric',
+        };
+        return new Intl.DateTimeFormat('en-GB', options).format(now);
     }
 
     render() {
@@ -124,8 +115,8 @@ class Dashboard extends Component {
         } else
             return <div>
                 <div id="alerts" className="marquee">{alerts[0]}</div>
-                <table cellSpacing={20}
-                    // style={{margin: "-30px -10px -40px -30px"}}
+                <table cellSpacing={1}
+                       style={{margin: "5px 35px 15px 0px"}}
                 >
                     <tr>
                         <td>
@@ -141,6 +132,12 @@ class Dashboard extends Component {
                                             <span id="currentPrec">{current.chanceOfRain}</span>%
                                         </span>
                                     </td>
+                                    <td className="legend top" style={{paddingLeft: "15px"}}>humidity</td>
+                                    <td className="top">
+                                        <span style={{float: 'left', marginLeft: '10px'}}>
+                                            <span id="currentHumidity">{current.humidity}%</span>
+                                        </span>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td id="apparentTempLabel" className="observations legend bottom">feels like</td>
@@ -153,21 +150,21 @@ class Dashboard extends Component {
                                             <span className="wind" style={current.windStyle}>↑</span>
                                         </span>
                                     </td>
-                                    <td id="humidityLabel" className="observations legend bottom"
-                                        style={{
-                                            paddingLeft: "15px",
-                                            paddingRight: "5px",
-                                            textAlign: "right"
-                                        }}>rh
+                                    <td id="pressureLabel" className="observations legend bottom"
+                                        style={{paddingLeft: "15px"}}>pressure
                                     </td>
-                                    <td id="currentHumidity"></td>
+                                    <td id="currentPressure" className="observations">
+                                        <span style={{float: 'left', marginLeft: '10px'}}>{current.pressure} hPa</span>
+                                    </td>
                                 </tr>
                             </table>
                         </td>
-                        <td id="currentSummary"></td>
-                        <td className="currentDateTime">
-                            <span id="currentDate"></span><br/>
-                            <span id="currentTime"></span>
+                        <td id="currentSummary">{current.summary}</td>
+                        <td>
+                            <span className="currentDateTime">
+                                <span id="currentDate">{current.date}</span><br/>
+                                <span id="currentTime">{current.time}</span>
+                            </span>
                         </td>
                     </tr>
                 </table>
