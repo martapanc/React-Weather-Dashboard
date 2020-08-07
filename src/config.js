@@ -9,7 +9,7 @@ export const Constants = {
     longitude: -2.240810,
     locale: 'en-GB',
     units: 'metric', //default, metric, imperial
-    refresh: 60000, //milliseconds
+    refresh: 600000, //milliseconds
 };
 
 export function getDegreeSymbol(unit) {
