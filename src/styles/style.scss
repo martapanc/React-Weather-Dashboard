@@ -93,8 +93,8 @@ body {
 }
 
 #currentIcon {
-    width: 128px;
-    height: 128px;
+    width: 150px;
+    height: 150px;
 }
 
 #currentTemp {
@@ -256,10 +256,12 @@ body {
 
 .wind {
     display: inline-block;
+    margin-left: 7px;
 }
 
 .windContainer {
-    padding-left:3px;
+    padding-left: 3px;
+    margin-left: 10px;
 }
 
 .icon {

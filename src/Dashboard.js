@@ -38,7 +38,8 @@ class Dashboard extends Component {
                             temp: this.getFormattedTemp(result.current.temp),
                             feelsLike: this.getFormattedTemp(result.current.feels_like),
                             chanceOfRain: this.getChanceOfRain(result.current),
-                            windSpeed: this.getFormattedWindSpeed(result.current.wind_speed)
+                            windSpeed: this.getFormattedWindSpeed(result.current),
+                            windStyle: this.getWindDegStyle(result.current.wind_deg)
                         }
                     });
                     this.intervalID = setTimeout(this.fetchData.bind(this), Constants.refresh);
@@ -102,8 +103,15 @@ class Dashboard extends Component {
         return Math.round(temp) + getDegreeSymbol(Constants.units);
     }
 
-    getFormattedWindSpeed(wind_speed) {
-        return Math.round(wind_speed) + getWindSpeedSymbol(Constants.units);
+    getFormattedWindSpeed(current) {
+        return <span>
+            {Math.round(current.wind_speed) + getWindSpeedSymbol(Constants.units)}
+            {/*<span className="windDeg" style={{transform: `rotate(${current.wind_deg}deg)`, transformOrigin: 'right top'}}>↑</span>*/}
+        </span>
+    }
+
+    getWindDegStyle(wind_deg) {
+        return {transform: `rotate(${wind_deg}deg)`}
     }
 
     render() {
@@ -120,28 +128,36 @@ class Dashboard extends Component {
                     // style={{margin: "-30px -10px -40px -30px"}}
                 >
                     <tr>
-                        <td>{current.icon}
-                            <img src={current.icon} alt="Current icon"/>
+                        <td>
+                            <img id="currentIcon" src={current.icon} alt="Current icon"/>
                         </td>
-                        <td style={{"vertical-align": "middle", "white-space": "nowrap"}}>
+                        <td style={{verticalAlign: "middle", whiteSpace: "nowrap"}}>
                             <table className="observations">
                                 <tr>
                                     <td id="currentTemp" colSpan="2">{current.temp}</td>
-                                    <td className="legend top" style={{"padding-left": "15px"}}>prob. of rain</td>
-                                    <td className="top"><span id="currentPrec">{current.chanceOfRain}</span>%</td>
+                                    <td className="legend top" style={{paddingLeft: "15px"}}>prob.</td>
+                                    <td className="top">
+                                        <span style={{float: 'left', marginLeft: '10px'}}>
+                                            <span id="currentPrec">{current.chanceOfRain}</span>%
+                                        </span>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td id="apparentTempLabel" className="observations legend bottom">feels like</td>
                                     <td id="currentApparentTemp">{current.feelsLike}</td>
                                     <td id="windLabel" className="observations legend bottom"
-                                        style={{"padding-left": "15px"}}>wind
+                                        style={{paddingLeft: "15px"}}>wind
                                     </td>
-                                    <td id="currentWind"><span>{current.windSpeed}</span></td>
+                                    <td id="currentWind">
+                                        <span className="windContainer">{current.windSpeed}
+                                            <span className="wind" style={current.windStyle}>↑</span>
+                                        </span>
+                                    </td>
                                     <td id="humidityLabel" className="observations legend bottom"
                                         style={{
-                                            "padding-left": "15px",
-                                            "padding-right": "5px",
-                                            "text-align": "right"
+                                            paddingLeft: "15px",
+                                            paddingRight: "5px",
+                                            textAlign: "right"
                                         }}>rh
                                     </td>
                                     <td id="currentHumidity"></td>
@@ -177,7 +193,6 @@ class Dashboard extends Component {
                 </table>
             </div>
     }
-
 }
 
 export default Dashboard;
