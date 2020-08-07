@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {api_url, Constants, getDegreeSymbol, getWindSpeedSymbol, IconMap} from "./config" ;
+import {api_url, Constants} from "./config" ;
 import ScrollingAlerts from "./components/ScrollingAlerts";
 import CurrentBoard from "./components/CurrentBoard";
 
@@ -13,7 +13,7 @@ class Dashboard extends Component {
             hasAlerts: false,
             alerts: [],
             resp: [],
-            currentIcon: null
+            current: null
         }
     }
 
@@ -35,19 +35,7 @@ class Dashboard extends Component {
                         hasAlerts: true,
                         alerts: ["It's the end of the world as we know it"],
                         resp: result,
-                        current: {
-                            icon: this.getCurrentIcon(result.current.weather),
-                            temp: this.getFormattedTemp(result.current.temp),
-                            feelsLike: this.getFormattedTemp(result.current.feels_like),
-                            chanceOfRain: this.getChanceOfRain(result.current),
-                            windSpeed: this.getFormattedWindSpeed(result.current),
-                            windStyle: this.getWindDegStyle(result.current.wind_deg),
-                            humidity: result.current.humidity,
-                            pressure: result.current.pressure,
-                            summary: "Partly cloudy throughout the day. Light rain on Sunday through Thursday.",
-                            date: this.getFormattedDate(),
-                            time: this.getFormattedTime()
-                        }
+                        current: result.current
                     });
                     this.intervalID = setTimeout(this.fetchData.bind(this), Constants.refresh);
                 },
@@ -60,53 +48,6 @@ class Dashboard extends Component {
             )
     };
 
-    getCurrentIcon(currentWeather) {
-        const weatherMainName = currentWeather[0].main;
-        if (weatherMainName in IconMap) {
-            console.log(weatherMainName);
-            return IconMap['weatherMainName'];
-        } else {
-            return IconMap.notFound;
-        }
-    }
-
-    getChanceOfRain(current) {
-        if ('pop' in current) {
-            return current.pop;
-        } else {
-            return 0;
-        }
-    }
-
-    getFormattedTemp(temp) {
-        return Math.round(temp) + getDegreeSymbol(Constants.units);
-    }
-
-    getFormattedWindSpeed(current) {
-        return <span>
-            {Math.round(current.wind_speed) + getWindSpeedSymbol(Constants.units)}
-        </span>
-    }
-
-    getWindDegStyle(wind_deg) {
-        return {transform: `rotate(${wind_deg}deg)`}
-    }
-
-    getFormattedDate() {
-        const now = new Date();
-        const options = {weekday: 'long', month: 'long', day: 'numeric'};
-        return new Intl.DateTimeFormat('en-GB', options).format(now);
-    }
-
-    getFormattedTime() {
-        const now = new Date();
-
-        const options = {
-            hour: 'numeric', minute: 'numeric',
-        };
-        return new Intl.DateTimeFormat('en-GB', options).format(now);
-    }
-
     render() {
         const {error, isLoaded, resp, hasAlerts, alerts, current} = this.state;
 
@@ -117,7 +58,7 @@ class Dashboard extends Component {
         } else
             return <div>
                 <ScrollingAlerts hasAlerts={hasAlerts} alerts={alerts}/>
-                <CurrentBoard current={current} />
+                <CurrentBoard current={current}/>
                 <table id="tableHourlyForecast" cellSpacing="0">
                     <tr id="hourlyHours"></tr>
                     <tr id="hourlyIcons"></tr>
