@@ -6,8 +6,9 @@ require('dotenv').config();
 export const Constants = {
     api_key: process.env.REACT_APP_API_KEY,
     latitude: 53.480720,
-    longitude: 2.240810,
+    longitude: -2.240810,
     units: 'metric', //default, metric, imperial
+    refresh: 60000, //milliseconds
 };
 
 export function getDegreeSymbol(unit) {

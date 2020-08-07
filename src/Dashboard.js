@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {api_url, Constants, DegreeSymbols, getDegreeSymbol, getWindSpeedSymbol, IconMap} from "./config" ;
+import {api_url, Constants, getDegreeSymbol, getWindSpeedSymbol, IconMap} from "./config" ;
 
 class Dashboard extends Component {
 
@@ -16,6 +16,14 @@ class Dashboard extends Component {
     }
 
     componentDidMount() {
+        this.fetchData();
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.intervalID)
+    }
+
+    fetchData = () => {
         fetch(api_url)
             .then(res => res.json())
             .then(
@@ -33,6 +41,7 @@ class Dashboard extends Component {
                             windSpeed: this.getFormattedWindSpeed(result.current.wind_speed)
                         }
                     });
+                    this.intervalID = setTimeout(this.fetchData.bind(this), Constants.refresh);
                 },
                 (error) => {
                     this.setState({
@@ -41,12 +50,41 @@ class Dashboard extends Component {
                     });
                 }
             )
-    }
+    };
+
+    // async fetchData() {
+    //     try {
+    //         const rs = await fetch(api_url);
+    //         const result = await rs.json();
+    //
+    //         console.log(result.current.dt);
+    //
+    //         this.setState({
+    //             isLoaded: true,
+    //             hasAlerts: true,
+    //             alerts: ["It's the end of the world as we know it"],
+    //             resp: result,
+    //             current: {
+    //                 icon: this.getCurrentIcon(result.current.weather),
+    //                 temp: this.getFormattedTemp(result.current.temp),
+    //                 feelsLike: this.getFormattedTemp(result.current.feels_like),
+    //                 chanceOfRain: this.getChanceOfRain(result.current),
+    //                 windSpeed: this.getFormattedWindSpeed(result.current.wind_speed)
+    //             }
+    //         });
+    //
+    //         this.intervalID = setTimeout(this.fetchData.bind(this), 10000);
+    //
+    //     } catch (e) {
+    //         console.log(e);
+    //     }
+    // }
 
     getCurrentIcon(currentWeather) {
-        const weatherMainName = currentWeather.main;
+        const weatherMainName = currentWeather[0].main;
         if (weatherMainName in IconMap) {
-            return IconMap.get(weatherMainName);
+            console.log(weatherMainName);
+            return IconMap['weatherMainName'];
         } else {
             return IconMap.notFound;
         }
