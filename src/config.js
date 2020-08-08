@@ -28,28 +28,6 @@ export const Constants = {
     refresh: 10 * 60 * 1000, //milliseconds
 };
 
-export function getDegreeSymbol(unit) {
-    switch (unit) {
-        case 'metric':
-            return '°C';
-        case 'imperial':
-            return '°F';
-        default:
-            return 'K';
-    }
-}
-
-export function getWindSpeedSymbol(unit) {
-    switch (unit) {
-        case 'imperial':
-            return ' mph';
-        case 'metric':
-        default:
-            return ' m/s';
-    }
-}
-
-
 export const Appearance = {
     theme: "blue" // "blue", "black", "white"
 };

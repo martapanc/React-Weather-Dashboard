@@ -1,6 +1,7 @@
 import React, {Component} from "react";
-import {Constants, getDegreeSymbol, getWindSpeedSymbol, IconMap} from "../config";
+import {Constants, IconMap} from "../config";
 import DateTimeSection from "./DateTimeSection";
+import {getPercentage, getDegreeSymbol, getWindSpeedSymbol} from "../utils/measureHelper";
 
 class CurrentBoard extends Component {
     constructor(props) {
@@ -33,7 +34,7 @@ class CurrentBoard extends Component {
 
     getChanceOfRain(current) {
         if ('pop' in current) {
-            return current.pop;
+            return getPercentage(current.pop);
         } else {
             return 0;
         }

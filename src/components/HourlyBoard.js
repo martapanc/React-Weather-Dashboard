@@ -1,5 +1,6 @@
 import React, {Component} from "react";
-import {Constants, getDegreeSymbol, getWindSpeedSymbol, IconMap} from "../config";
+import {Constants, IconMap} from "../config";
+import {getDegreeSymbol, getPercentage, getWindSpeedSymbol} from "../utils/measureHelper";
 
 class HourlyBoard extends Component {
     constructor(props) {
@@ -7,14 +8,15 @@ class HourlyBoard extends Component {
         const hourlyForecast = this.props.hourlyForecast;
 
         this.state = {
-            limit: 16,
+            limit: 17,
+            initial: 1,
             hourlyForecast: hourlyForecast
         }
     }
 
     getHourHeaders() {
         return this.state.hourlyForecast
-            .slice(0, this.state.limit)
+            .slice(this.state.initial, this.state.limit)
             .map(
                 hourly => {
                     let dateTime = new Date(0);
@@ -26,7 +28,7 @@ class HourlyBoard extends Component {
 
     getHourlyIcons() {
         return this.state.hourlyForecast
-            .slice(0, this.state.limit)
+            .slice(this.state.initial, this.state.limit)
             .map(
                 hourly => {
                     const hourlyStatus = hourly.weather[0].description;
@@ -42,7 +44,7 @@ class HourlyBoard extends Component {
 
     getHourlyTemperatures() {
         return this.state.hourlyForecast
-            .slice(0, this.state.limit)
+            .slice(this.state.initial, this.state.limit)
             .map(
                 hourly => {
                     return <td>
@@ -54,7 +56,7 @@ class HourlyBoard extends Component {
 
     getHourlyWind() {
         return this.state.hourlyForecast
-            .slice(0, this.state.limit)
+            .slice(this.state.initial, this.state.limit)
             .map(
                 hourly => {
                     return <td>
@@ -67,7 +69,7 @@ class HourlyBoard extends Component {
 
     getHourlyHumidity() {
         return this.state.hourlyForecast
-            .slice(0, this.state.limit)
+            .slice(this.state.initial, this.state.limit)
             .map(
                 hourly => {
                     return <td>{hourly.humidity}%</td>
@@ -77,7 +79,7 @@ class HourlyBoard extends Component {
 
     getHourlyAccumulation() {
         return this.state.hourlyForecast
-            .slice(0, this.state.limit)
+            .slice(this.state.initial, this.state.limit)
             .map(
                 hourly => {
                     let accumulation = 0;
@@ -94,12 +96,12 @@ class HourlyBoard extends Component {
 
     getHourlyChanceOfRain() {
         return this.state.hourlyForecast
-            .slice(0, this.state.limit)
+            .slice(this.state.initial, this.state.limit)
             .map(
                 hourly => {
                     let chance = 0;
                     if ('pop' in hourly) {
-                        chance = hourly.pop;
+                        chance = getPercentage(hourly.pop);
                     }
                     return <td>{chance}%</td>
                 }
