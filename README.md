@@ -7,10 +7,11 @@ Live app: https://weather-forecast-dashboard.web.app/
 
 ---
 #### Blue theme
-<img src="src/assets/samples/Screenshot_1.png" width="90%" alt="Screenshot 1"/>
+<img src="src/assets/samples/Screenshot_1.png" width="100%" alt="Screenshot 1"/>
 
 #### Black theme
-<img src="src/assets/samples/Screenshot_2.png" width="90%" alt="Screenshot 2"/>
+<img src="src/assets/samples/Screenshot_2.png" width="100%" alt="Screenshot 2"/>
+
 ---
 
 ## Project setup
