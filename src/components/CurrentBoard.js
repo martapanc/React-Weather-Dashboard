@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import {Config, IconMap} from "../constants";
 import DateTimeSection from "./DateTimeSection";
 import {getPercentage, getDegreeSymbol, getWindSpeedSymbol} from "../utils/measureHelper";
+import humidity from "../assets/symbols/humidity.svg";
 
 class CurrentBoard extends Component {
     constructor(props) {
