@@ -6,7 +6,18 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import {Appearance} from "./constants";
 
-require(`./styles/theme/${Appearance.theme}.scss`);
+const theme = Appearance.theme;
+switch (theme) {
+    case "black":
+        require(`./styles/theme/black.scss`);
+        break;
+    case "white":
+        require(`./styles/theme/white.scss`);
+        break;
+    case "blue":
+    default:
+        require(`./styles/theme/blue.scss`);
+}
 
 ReactDOM.render(
     <React.StrictMode>

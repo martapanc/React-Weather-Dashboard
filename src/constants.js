@@ -29,7 +29,7 @@ export const Config = {
 };
 
 export const Appearance = {
-    theme: "blue" // "blue", "black", "white"
+    theme: 'blue' // "blue", "black", "white"
 };
 
 export const IconMap = {
