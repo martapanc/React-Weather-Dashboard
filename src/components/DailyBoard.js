@@ -17,9 +17,9 @@ class DailyBoard extends Component {
         return this.state.dailyForecast
             .slice(this.state.initial, this.state.limit)
             .map(
-                daily => {
+                (daily, i) => {
                     const dateTime = new Date(parseInt(daily.dt) * 1000);
-                    return <th>
+                    return <th key={i}>
                         {new Intl.DateTimeFormat(Config.locale, {weekday: 'long'}).format(dateTime)}
                     </th>
                 }
@@ -30,13 +30,13 @@ class DailyBoard extends Component {
         return this.state.dailyForecast
             .slice(this.state.initial, this.state.limit)
             .map(
-                daily => {
+                (daily, i) => {
                     const dailyStatus = daily.weather[0].description;
                     let dailyIcon = IconMap.notFound;
                     if (dailyStatus in IconMap) {
                         dailyIcon = IconMap[dailyStatus];
                     }
-                    return <td><img className="icon" src={dailyIcon} alt="Daily weather icon"/></td>
+                    return <td key={i}><img className="icon" src={dailyIcon} alt="Daily weather icon"/></td>
                 }
             )
     }
@@ -45,9 +45,9 @@ class DailyBoard extends Component {
         return this.state.dailyForecast
             .slice(this.state.initial, this.state.limit)
             .map(
-                daily => {
+                (daily, i) => {
                     const description = daily.weather[0].description;
-                    return <td>{description.charAt(0).toUpperCase() + description.substring(1)}</td>
+                    return <td key={i}>{description.charAt(0).toUpperCase() + description.substring(1)}</td>
                 }
             )
     }
@@ -56,8 +56,8 @@ class DailyBoard extends Component {
         return this.state.dailyForecast
             .slice(this.state.initial, this.state.limit)
             .map(
-                daily => {
-                    return <td>{Math.round(daily.temp.max)}{getDegreeSymbol(Config.units)}</td>
+                (daily, i) => {
+                    return <td key={i}>{Math.round(daily.temp.max)}{getDegreeSymbol(Config.units)}</td>
                 }
             )
     }
@@ -66,8 +66,8 @@ class DailyBoard extends Component {
         return this.state.dailyForecast
             .slice(this.state.initial, this.state.limit)
             .map(
-                daily => {
-                    return <td>{Math.round(daily.temp.min)}{getDegreeSymbol(Config.units)}</td>
+                (daily, i) => {
+                    return <td key={i}>{Math.round(daily.temp.min)}{getDegreeSymbol(Config.units)}</td>
                 }
             )
     }
@@ -76,8 +76,8 @@ class DailyBoard extends Component {
         return this.state.dailyForecast
             .slice(this.state.initial, this.state.limit)
             .map(
-                daily => {
-                    return <td>
+                (daily, i) => {
+                    return <td key={i}>
                         {Math.round(daily.wind_speed)} {getWindSpeedSymbol(Config.units)}
                         <span className="wind" style={{transform: `rotate(${daily.wind_deg}deg)`}}>↑</span>
                     </td>
@@ -89,8 +89,8 @@ class DailyBoard extends Component {
         return this.state.dailyForecast
             .slice(this.state.initial, this.state.limit)
             .map(
-                daily => {
-                    return <td>{daily.humidity}%</td>
+                (daily, i) => {
+                    return <td key={i}>{daily.humidity}%</td>
                 }
             );
     }
@@ -99,7 +99,7 @@ class DailyBoard extends Component {
         return this.state.dailyForecast
             .slice(this.state.initial, this.state.limit)
             .map(
-                daily => {
+                (daily, i) => {
                     let accumulation = 0;
                     if ('rain' in daily) {
                         accumulation += daily.rain;
@@ -107,7 +107,7 @@ class DailyBoard extends Component {
                     if ('snow' in daily) {
                         accumulation += daily.snow
                     }
-                    return <td>{accumulation} mm</td>
+                    return <td key={i}>{accumulation} mm</td>
                 }
             );
     }
@@ -116,12 +116,12 @@ class DailyBoard extends Component {
         return this.state.dailyForecast
             .slice(this.state.initial, this.state.limit)
             .map(
-                daily => {
+                (daily, i) => {
                     let chance = 0;
                     if ('pop' in daily) {
                         chance = getPercentage(daily.pop);
                     }
-                    return <td>{chance}%</td>
+                    return <td key={i}>{chance}%</td>
                 }
             );
     }
@@ -129,10 +129,13 @@ class DailyBoard extends Component {
     render() {
         return (
             <table id="forecast">
+                <thead>
                 <tr id="forecastTitles">
                     <th/>
                     {this.getDailyHeaders()}
                 </tr>
+                </thead>
+                <tbody>
                 <tr id="forecastIcons">
                     <td/>
                     {this.getDailyIcons()}
@@ -165,6 +168,7 @@ class DailyBoard extends Component {
                     <td><strong>% of rain</strong></td>
                     {this.getDailyChanceOfRain()}
                 </tr>
+                </tbody>
             </table>
         )
     }

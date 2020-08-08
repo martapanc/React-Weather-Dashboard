@@ -17,9 +17,9 @@ class HourlyBoard extends Component {
         return this.state.hourlyForecast
             .slice(this.state.initial, this.state.limit)
             .map(
-                hourly => {
+                (hourly, i) => {
                     let dateTime = new Date(parseInt(hourly.dt) * 1000);
-                    return <th>{dateTime.getHours()}h</th>
+                    return <th key={i}>{dateTime.getHours()}h</th>
                 }
             );
     }
@@ -28,13 +28,13 @@ class HourlyBoard extends Component {
         return this.state.hourlyForecast
             .slice(this.state.initial, this.state.limit)
             .map(
-                hourly => {
+                (hourly, i) => {
                     const hourlyStatus = hourly.weather[0].description;
                     let hourlyIcon = IconMap.notFound;
                     if (hourlyStatus in IconMap) {
                         hourlyIcon = IconMap[hourlyStatus];
                     }
-                    return <td><img className="icon" src={hourlyIcon} alt="Hourly weather icon"/></td>
+                    return <td key={i}><img className="icon" src={hourlyIcon} alt="Hourly weather icon"/></td>
                 }
             );
     }
@@ -43,8 +43,8 @@ class HourlyBoard extends Component {
         return this.state.hourlyForecast
             .slice(this.state.initial, this.state.limit)
             .map(
-                hourly => {
-                    return <td>
+                (hourly, i) => {
+                    return <td key={i}>
                         {Math.round(hourly.temp)} {getDegreeSymbol(Config.units)}
                     </td>
                 }
@@ -55,8 +55,8 @@ class HourlyBoard extends Component {
         return this.state.hourlyForecast
             .slice(this.state.initial, this.state.limit)
             .map(
-                hourly => {
-                    return <td>
+                (hourly, i) => {
+                    return <td key={i}>
                         {Math.round(hourly.wind_speed)} {getWindSpeedSymbol(Config.units)}
                         <span className="wind" style={{transform: `rotate(${hourly.wind_deg}deg)`}}>↑</span>
                     </td>
@@ -68,8 +68,8 @@ class HourlyBoard extends Component {
         return this.state.hourlyForecast
             .slice(this.state.initial, this.state.limit)
             .map(
-                hourly => {
-                    return <td>{hourly.humidity}%</td>
+                (hourly, i) => {
+                    return <td key={i}>{hourly.humidity}%</td>
                 }
             );
     }
@@ -78,7 +78,7 @@ class HourlyBoard extends Component {
         return this.state.hourlyForecast
             .slice(this.state.initial, this.state.limit)
             .map(
-                hourly => {
+                (hourly, i) => {
                     let accumulation = 0;
                     if ('rain' in hourly) {
                         accumulation += hourly.rain;
@@ -86,7 +86,7 @@ class HourlyBoard extends Component {
                     if ('snow' in hourly) {
                         accumulation += hourly.snow
                     }
-                    return <td>{accumulation} mm</td>
+                    return <td key={i}>{accumulation} mm</td>
                 }
             );
     }
@@ -95,12 +95,12 @@ class HourlyBoard extends Component {
         return this.state.hourlyForecast
             .slice(this.state.initial, this.state.limit)
             .map(
-                hourly => {
+                (hourly, i) => {
                     let chance = 0;
                     if ('pop' in hourly) {
                         chance = getPercentage(hourly.pop);
                     }
-                    return <td>{chance}%</td>
+                    return <td key={i}>{chance}%</td>
                 }
             );
     }
@@ -108,10 +108,13 @@ class HourlyBoard extends Component {
     render() {
         return (
             <table id="tableHourlyForecast" cellSpacing="0">
+                <thead>
                 <tr id="hourlyHours">
                     <th/>
                     {this.getHourHeaders()}
                 </tr>
+                </thead>
+                <tbody>
                 <tr id="hourlyIcons">
                     <td/>
                     {this.getHourlyIcons()}
@@ -135,6 +138,7 @@ class HourlyBoard extends Component {
                     <td><strong>% of rain</strong></td>
                     {this.getHourlyChanceOfRain()}
                 </tr>
+                </tbody>
             </table>
         )
     }

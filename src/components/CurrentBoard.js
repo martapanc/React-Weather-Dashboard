@@ -61,10 +61,7 @@ class CurrentBoard extends Component {
 
     getFormattedTime(time) {
         const dateTime = new Date(parseInt(time) * 1000);
-        let s = new Intl.DateTimeFormat(Config.locale, {hour: 'numeric', minute: 'numeric'}).format(dateTime);
-        console.log(s);
-
-        return s;
+        return new Intl.DateTimeFormat(Config.locale, {hour: 'numeric', minute: 'numeric'}).format(dateTime);
     }
 
     getFormattedDescription(description) {
@@ -75,12 +72,14 @@ class CurrentBoard extends Component {
         const {current, daily} = this.state;
 
         return <table cellSpacing={1} style={{margin: "5px 35px 15px 0px"}}>
+            <tbody>
             <tr>
                 <td>
                     <img id="currentIcon" src={current.icon} alt="Current icon"/>
                 </td>
                 <td style={{verticalAlign: "middle", whiteSpace: "nowrap"}}>
                     <table className="observations">
+                        <tbody>
                         <tr>
                             <td id="currentTemp" colSpan="2">{current.temp}</td>
                             <td className="legend top" style={{paddingLeft: "15px"}}>prob.</td>
@@ -126,13 +125,15 @@ class CurrentBoard extends Component {
                                 <span style={{float: 'left', marginLeft: '10px'}}>{daily.sunset}</span>
                             </td>
                         </tr>
+                        </tbody>
                     </table>
                 </td>
                 <td id="currentSummary">{current.summary}</td>
                 <td>
-                    <DateTimeSection />
+                    <DateTimeSection/>
                 </td>
             </tr>
+            </tbody>
         </table>
     }
 }
