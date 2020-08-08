@@ -167,7 +167,7 @@ body {
 #forecast 
 {
     border-spacing: 5px 0;
-    margin: 20px 5px 0 5px;
+    margin: 20px auto 0 auto;
 }
 #forecast th 
 {
@@ -177,14 +177,13 @@ body {
 
 #forecast th:first-child 
 {
-        
     border-radius: 7px 7px 0 0;
 }
 
 #forecast td:first-child 
 {
     padding-left: 5px;
-    padding-right: 0;
+    padding-right: 5px;
     margin-right:-10px;
 }
 
@@ -192,12 +191,15 @@ body {
 #forecast td 
 {
     text-align: center;
+    padding: 4px 20px 4px 20px;
+    table-layout: fixed;
+    width: 150px;
 }
 
 #forecast th:first-child,
 #forecast td:first-child 
 {
-    width: 10px !important;
+    width: 100px !important;
 }
 
 #forecast tr:last-child td 

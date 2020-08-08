@@ -5,12 +5,11 @@ import {getDegreeSymbol, getPercentage, getWindSpeedSymbol} from "../utils/measu
 class HourlyBoard extends Component {
     constructor(props) {
         super(props);
-        const hourlyForecast = this.props.hourlyForecast;
 
         this.state = {
             limit: 18,
             initial: 1,
-            hourlyForecast: hourlyForecast
+            hourlyForecast: this.props.hourlyForecast
         }
     }
 
@@ -19,8 +18,7 @@ class HourlyBoard extends Component {
             .slice(this.state.initial, this.state.limit)
             .map(
                 hourly => {
-                    let dateTime = new Date(0);
-                    dateTime.setSeconds(hourly.dt);
+                    let dateTime = new Date(parseInt(hourly.dt) * 1000);
                     return <th>{dateTime.getHours()}h</th>
                 }
             );
@@ -33,7 +31,6 @@ class HourlyBoard extends Component {
                 hourly => {
                     const hourlyStatus = hourly.weather[0].description;
                     let hourlyIcon = IconMap.notFound;
-                    console.log(hourly.weather);
                     if (hourlyStatus in IconMap) {
                         hourlyIcon = IconMap[hourlyStatus];
                     }
@@ -110,7 +107,7 @@ class HourlyBoard extends Component {
 
     render() {
         return (
-            <table style={{float: 'left'}} id="tableHourlyForecast" cellSpacing="0">
+            <table id="tableHourlyForecast" cellSpacing="0">
                 <tr id="hourlyHours">
                     <th/>
                     {this.getHourHeaders()}

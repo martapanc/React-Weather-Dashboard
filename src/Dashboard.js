@@ -3,7 +3,7 @@ import {api_url, Constants} from "./config" ;
 import ScrollingAlerts from "./components/ScrollingAlerts";
 import CurrentBoard from "./components/CurrentBoard";
 import HourlyBoard from "./components/HourlyBoard";
-import ForecastBoard from "./components/ForecastBoard";
+import DailyBoard from "./components/DailyBoard";
 
 class Dashboard extends Component {
 
@@ -14,9 +14,9 @@ class Dashboard extends Component {
             isLoaded: false,
             hasAlerts: false,
             alerts: [],
-            resp: [],
             current: null,
-            hourly: null
+            hourly: null,
+            daily: null
         }
     }
 
@@ -37,9 +37,9 @@ class Dashboard extends Component {
                         isLoaded: true,
                         hasAlerts: true,
                         alerts: ["It's the end of the world as we know it"],
-                        resp: result,
                         current: result.current,
-                        hourly: result.hourly
+                        hourly: result.hourly,
+                        daily: result.daily
                     });
                     this.intervalID = setTimeout(this.fetchData.bind(this), Constants.refresh);
                 },
@@ -53,7 +53,7 @@ class Dashboard extends Component {
     };
 
     render() {
-        const {error, isLoaded, resp, hasAlerts, alerts, current, hourly} = this.state;
+        const {error, isLoaded, hasAlerts, alerts, current, hourly, daily} = this.state;
 
         if (error) {
             return <div>Error contacting API</div>
@@ -64,7 +64,7 @@ class Dashboard extends Component {
                 <ScrollingAlerts hasAlerts={hasAlerts} alerts={alerts}/>
                 <CurrentBoard current={current}/>
                 <HourlyBoard hourlyForecast={hourly}/>
-                <ForecastBoard/>
+                <DailyBoard dailyForecast={daily}/>
             </div>
     }
 }
