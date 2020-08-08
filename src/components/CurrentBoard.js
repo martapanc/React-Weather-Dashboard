@@ -23,9 +23,9 @@ class CurrentBoard extends Component {
     }
 
     getCurrentIcon(currentWeather) {
-        const weatherMainName = currentWeather[0].main;
-        if (weatherMainName in IconMap) {
-            return IconMap['weatherMainName'];
+        const weatherDescription = currentWeather[0].description;
+        if (weatherDescription in IconMap) {
+            return IconMap[weatherDescription];
         } else {
             return IconMap.notFound;
         }

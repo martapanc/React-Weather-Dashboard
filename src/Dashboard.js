@@ -2,6 +2,8 @@ import React, {Component} from "react";
 import {api_url, Constants} from "./config" ;
 import ScrollingAlerts from "./components/ScrollingAlerts";
 import CurrentBoard from "./components/CurrentBoard";
+import HourlyBoard from "./components/HourlyBoard";
+import ForecastBoard from "./components/ForecastBoard";
 
 class Dashboard extends Component {
 
@@ -13,7 +15,8 @@ class Dashboard extends Component {
             hasAlerts: false,
             alerts: [],
             resp: [],
-            current: null
+            current: null,
+            hourly: null
         }
     }
 
@@ -35,7 +38,8 @@ class Dashboard extends Component {
                         hasAlerts: true,
                         alerts: ["It's the end of the world as we know it"],
                         resp: result,
-                        current: result.current
+                        current: result.current,
+                        hourly: result.hourly
                     });
                     this.intervalID = setTimeout(this.fetchData.bind(this), Constants.refresh);
                 },
@@ -49,7 +53,7 @@ class Dashboard extends Component {
     };
 
     render() {
-        const {error, isLoaded, resp, hasAlerts, alerts, current} = this.state;
+        const {error, isLoaded, resp, hasAlerts, alerts, current, hourly} = this.state;
 
         if (error) {
             return <div>Error contacting API</div>
@@ -59,26 +63,8 @@ class Dashboard extends Component {
             return <div>
                 <ScrollingAlerts hasAlerts={hasAlerts} alerts={alerts}/>
                 <CurrentBoard current={current}/>
-                <table id="tableHourlyForecast" cellSpacing="0">
-                    <tr id="hourlyHours"></tr>
-                    <tr id="hourlyIcons"></tr>
-                    <tr id="hourlyTemp"></tr>
-                    <tr id="hourlyWind"></tr>
-                    <tr id="hourlyHumidity"></tr>
-                    <tr id="hourlyAcc"></tr>
-                    <tr id="hourlyPrec"></tr>
-                </table>
-                <table id="forecast">
-                    <tr id="forecastTitles"></tr>
-                    <tr id="forecastIcons"></tr>
-                    <tr id="forecastSummaries"></tr>
-                    <tr id="forecastMaxTemps"></tr>
-                    <tr id="forecastMinTemps"></tr>
-                    <tr id="forecastWind"></tr>
-                    <tr id="forecastHumidity"></tr>
-                    <tr id="forecastAccumulations"></tr>
-                    <tr id="forecastPrecipitations"></tr>
-                </table>
+                <HourlyBoard hourlyForecast={hourly}/>
+                <ForecastBoard/>
             </div>
     }
 }
