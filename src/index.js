@@ -2,15 +2,17 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './styles/index.scss';
 import './styles/style.scss';
-import './styles/theme/blue.scss';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import {Appearance} from "./constants";
+
+require(`./styles/theme/${Appearance.theme}.scss`);
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+    <React.StrictMode>
+        <App/>
+    </React.StrictMode>,
+    document.getElementById('root')
 );
 
 // If you want your app to work offline and load faster, you can change

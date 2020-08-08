@@ -3,9 +3,30 @@
 Inspired by [Weather-Dashboard-Forecast](https://github.com/vlaine/Weather-Forecast-Dashboard) by @vlaine, after I got extremely disappointed discovering that [DarkSky API](https://darksky.net/dev) will be acquired by Apple soon and is no more accepting dev applications (can't believe the timing 🙄 ).
 <br/>Using [OpenWeather API](https://home.openweathermap.org/) instead.
 
+Live app: https://weather-forecast-dashboard.web.app/
 
 ---
+#### Blue theme
+<img src="src/assets/samples/Screenshot_1.png" width="90%" alt="Screenshot 1"/>
 
+#### Black theme
+<img src="src/assets/samples/Screenshot_2.png" width="90%" alt="Screenshot 2"/>
+---
+
+## Project setup
+- Create a file `.env` in the main directory with the line 
+```
+REACT_APP_API_KEY=<your OpenWeather API KEY>
+```
+- Edit `src/constants.js` to set the preferred configuration
+
+The project can be run using 
+```
+npm run start
+```
+and accessed in the browser at http://localhost:3000
+
+---
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
