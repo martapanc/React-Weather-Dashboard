@@ -43,5 +43,9 @@ export const IconMap = {
     notFound: sunny
 };
 
-export const api_url = `https://api.openweathermap.org/data/2.5/onecall?APPID=${Constants.api_key}&lat=${Constants.latitude}&lon=${Constants.longitude}&units=${Constants.units}`;
+const api_url_ow = `https://api.openweathermap.org/data/2.5/onecall?APPID=${Constants.api_key}&lat=${Constants.latitude}&lon=${Constants.longitude}&units=${Constants.units}`;
+const api_url_test = 'http://localhost:8082';
 
+export const api_url = api_url_ow;
+
+console.log("args: " + process.argv);
