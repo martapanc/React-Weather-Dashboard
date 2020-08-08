@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Constants, IconMap} from "../config";
+import {Config, IconMap} from "../constants";
 import {getDegreeSymbol, getPercentage, getWindSpeedSymbol} from "../utils/measureHelper";
 
 class DailyBoard extends Component {
@@ -20,7 +20,7 @@ class DailyBoard extends Component {
                 daily => {
                     const dateTime = new Date(parseInt(daily.dt) * 1000);
                     return <th>
-                        {new Intl.DateTimeFormat(Constants.locale, {weekday: 'long'}).format(dateTime)}
+                        {new Intl.DateTimeFormat(Config.locale, {weekday: 'long'}).format(dateTime)}
                     </th>
                 }
             )
@@ -57,7 +57,7 @@ class DailyBoard extends Component {
             .slice(this.state.initial, this.state.limit)
             .map(
                 daily => {
-                    return <td>{Math.round(daily.temp.max)}{getDegreeSymbol(Constants.units)}</td>
+                    return <td>{Math.round(daily.temp.max)}{getDegreeSymbol(Config.units)}</td>
                 }
             )
     }
@@ -67,7 +67,7 @@ class DailyBoard extends Component {
             .slice(this.state.initial, this.state.limit)
             .map(
                 daily => {
-                    return <td>{Math.round(daily.temp.min)}{getDegreeSymbol(Constants.units)}</td>
+                    return <td>{Math.round(daily.temp.min)}{getDegreeSymbol(Config.units)}</td>
                 }
             )
     }
@@ -78,7 +78,7 @@ class DailyBoard extends Component {
             .map(
                 daily => {
                     return <td>
-                        {Math.round(daily.wind_speed)} {getWindSpeedSymbol(Constants.units)}
+                        {Math.round(daily.wind_speed)} {getWindSpeedSymbol(Config.units)}
                         <span className="wind" style={{transform: `rotate(${daily.wind_deg}deg)`}}>↑</span>
                     </td>
                 }

@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Constants, IconMap} from "../config";
+import {Config, IconMap} from "../constants";
 import {getDegreeSymbol, getPercentage, getWindSpeedSymbol} from "../utils/measureHelper";
 
 class HourlyBoard extends Component {
@@ -45,7 +45,7 @@ class HourlyBoard extends Component {
             .map(
                 hourly => {
                     return <td>
-                        {Math.round(hourly.temp)} {getDegreeSymbol(Constants.units)}
+                        {Math.round(hourly.temp)} {getDegreeSymbol(Config.units)}
                     </td>
                 }
             );
@@ -57,7 +57,7 @@ class HourlyBoard extends Component {
             .map(
                 hourly => {
                     return <td>
-                        {Math.round(hourly.wind_speed)} {getWindSpeedSymbol(Constants.units)}
+                        {Math.round(hourly.wind_speed)} {getWindSpeedSymbol(Config.units)}
                         <span className="wind" style={{transform: `rotate(${hourly.wind_deg}deg)`}}>↑</span>
                     </td>
                 }

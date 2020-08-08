@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Constants} from "../config";
+import {Config} from "../constants";
 
 class DateTimeSection extends Component {
 
@@ -27,14 +27,14 @@ class DateTimeSection extends Component {
 
     getFormattedDate(dateTime) {
         const options = {weekday: 'long', month: 'long', day: 'numeric'};
-        return new Intl.DateTimeFormat(Constants.locale, options).format(dateTime);
+        return new Intl.DateTimeFormat(Config.locale, options).format(dateTime);
     }
 
     getFormattedTime(dateTime) {
         const options = {
             hour: 'numeric', minute: 'numeric',
         };
-        return new Intl.DateTimeFormat(Constants.locale, options).format(dateTime);
+        return new Intl.DateTimeFormat(Config.locale, options).format(dateTime);
     }
 
     render() {

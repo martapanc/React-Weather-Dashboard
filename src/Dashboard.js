@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {api_url, Constants} from "./config" ;
+import {api_url, Config} from "./constants" ;
 import ScrollingAlerts from "./components/ScrollingAlerts";
 import CurrentBoard from "./components/CurrentBoard";
 import HourlyBoard from "./components/HourlyBoard";
@@ -41,7 +41,7 @@ class Dashboard extends Component {
                         hourly: result.hourly,
                         daily: result.daily
                     });
-                    this.intervalID = setTimeout(this.fetchData.bind(this), Constants.refresh);
+                    this.intervalID = setTimeout(this.fetchData.bind(this), Config.refresh);
                 },
                 (error) => {
                     this.setState({

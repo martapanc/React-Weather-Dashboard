@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Constants, IconMap} from "../config";
+import {Config, IconMap} from "../constants";
 import DateTimeSection from "./DateTimeSection";
 import {getPercentage, getDegreeSymbol, getWindSpeedSymbol} from "../utils/measureHelper";
 
@@ -41,12 +41,12 @@ class CurrentBoard extends Component {
     }
 
     getFormattedTemp(temp) {
-        return Math.round(temp) + getDegreeSymbol(Constants.units);
+        return Math.round(temp) + getDegreeSymbol(Config.units);
     }
 
     getFormattedWindSpeed(current) {
         return <span>
-            {Math.round(current.wind_speed) + getWindSpeedSymbol(Constants.units)}
+            {Math.round(current.wind_speed) + getWindSpeedSymbol(Config.units)}
         </span>
     }
 

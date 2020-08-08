@@ -19,7 +19,7 @@ import unknown from './assets/icons/unknown.svg';
 
 require('dotenv').config();
 
-export const Constants = {
+export const Config = {
     api_key: process.env.REACT_APP_API_KEY,
     latitude: 53.480720,
     longitude: -2.240810,
@@ -93,7 +93,7 @@ export const IconMap = {
     notFound: unknown
 };
 
-const api_url_ow = `https://api.openweathermap.org/data/2.5/onecall?APPID=${Constants.api_key}&lat=${Constants.latitude}&lon=${Constants.longitude}&units=${Constants.units}`;
+const api_url_ow = `https://api.openweathermap.org/data/2.5/onecall?APPID=${Config.api_key}&lat=${Config.latitude}&lon=${Config.longitude}&units=${Config.units}`;
 const api_url_test = 'http://localhost:8082';
 
 export const api_url = api_url_ow;
