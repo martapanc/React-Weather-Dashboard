@@ -7,6 +7,7 @@ class CurrentBoard extends Component {
     constructor(props) {
         super(props);
         let current = this.props.current;
+        let daily = this.props.daily;
 
         this.state = {
             current: {
@@ -18,7 +19,11 @@ class CurrentBoard extends Component {
                 windStyle: this.getWindDegStyle(current.wind_deg),
                 humidity: current.humidity,
                 pressure: current.pressure,
-                summary: "Partly cloudy throughout the day. Light rain on Sunday through Thursday."
+                summary: this.getFormattedDescription(current.weather[0].description)
+            },
+            daily: {
+                sunrise: this.getFormattedTime(daily.sunrise),
+                sunset: this.getFormattedTime(daily.sunset)
             }
         }
     }
@@ -54,8 +59,20 @@ class CurrentBoard extends Component {
         return {transform: `rotate(${wind_deg}deg)`}
     }
 
+    getFormattedTime(time) {
+        const dateTime = new Date(parseInt(time) * 1000);
+        let s = new Intl.DateTimeFormat(Config.locale, {hour: 'numeric', minute: 'numeric'}).format(dateTime);
+        console.log(s);
+
+        return s;
+    }
+
+    getFormattedDescription(description) {
+        return description.charAt(0).toUpperCase() + description.substring(1);
+    }
+
     render() {
-        const {current} = this.state;
+        const {current, daily} = this.state;
 
         return <table cellSpacing={1} style={{margin: "5px 35px 15px 0px"}}>
             <tr>
@@ -78,6 +95,12 @@ class CurrentBoard extends Component {
                                     <span id="currentHumidity">{current.humidity}%</span>
                                 </span>
                             </td>
+                            <td className="legend top" style={{paddingLeft: "15px"}}>sunrise</td>
+                            <td className="top">
+                                <span style={{float: 'left', marginLeft: '10px'}}>
+                                    <span id="currentHumidity">{daily.sunrise}</span>
+                                </span>
+                            </td>
                         </tr>
                         <tr>
                             <td id="apparentTempLabel" className="observations legend bottom">feels like</td>
@@ -95,6 +118,12 @@ class CurrentBoard extends Component {
                             </td>
                             <td id="currentPressure" className="observations">
                                 <span style={{float: 'left', marginLeft: '10px'}}>{current.pressure} hPa</span>
+                            </td>
+                            <td id="sunsetLabel" className="observations legend bottom"
+                                style={{paddingLeft: "15px"}}>sunset
+                            </td>
+                            <td id="sunset" className="observations">
+                                <span style={{float: 'left', marginLeft: '10px'}}>{daily.sunset}</span>
                             </td>
                         </tr>
                     </table>

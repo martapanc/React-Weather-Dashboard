@@ -62,7 +62,7 @@ class Dashboard extends Component {
         } else
             return <div>
                 <ScrollingAlerts hasAlerts={hasAlerts} alerts={alerts}/>
-                <CurrentBoard current={current}/>
+                <CurrentBoard current={current} daily={daily[0]}/>
                 <HourlyBoard hourlyForecast={hourly}/>
                 <DailyBoard dailyForecast={daily}/>
             </div>
