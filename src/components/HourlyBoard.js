@@ -8,7 +8,7 @@ class HourlyBoard extends Component {
         const hourlyForecast = this.props.hourlyForecast;
 
         this.state = {
-            limit: 17,
+            limit: 18,
             initial: 1,
             hourlyForecast: hourlyForecast
         }
@@ -110,16 +110,34 @@ class HourlyBoard extends Component {
 
     render() {
         return (
-            <table id="tableHourlyForecast" cellSpacing="0">
+            <table style={{float: 'left'}} id="tableHourlyForecast" cellSpacing="0">
                 <tr id="hourlyHours">
+                    <th/>
                     {this.getHourHeaders()}
                 </tr>
-                <tr id="hourlyIcons">{this.getHourlyIcons()}</tr>
-                <tr id="hourlyTemp">{this.getHourlyTemperatures()}</tr>
-                <tr id="hourlyWind">{this.getHourlyWind()}</tr>
-                <tr id="hourlyHumidity">{this.getHourlyHumidity()}</tr>
-                <tr id="hourlyAcc">{this.getHourlyAccumulation()}</tr>
-                <tr id="hourlyPrec">{this.getHourlyChanceOfRain()}</tr>
+                <tr id="hourlyIcons">
+                    <td/>
+                    {this.getHourlyIcons()}
+                </tr>
+                <tr id="hourlyTemp">
+                    <td><strong>Temp.</strong></td>
+                    {this.getHourlyTemperatures()}</tr>
+                <tr id="hourlyWind">
+                    <td><strong>Wind</strong></td>
+                    {this.getHourlyWind()}
+                </tr>
+                <tr id="hourlyHumidity">
+                    <td><strong>Humidity</strong></td>
+                    {this.getHourlyHumidity()}
+                </tr>
+                <tr id="hourlyAcc">
+                    <td><strong>Rain</strong></td>
+                    {this.getHourlyAccumulation()}
+                </tr>
+                <tr id="hourlyPrec">
+                    <td><strong>% of rain</strong></td>
+                    {this.getHourlyChanceOfRain()}
+                </tr>
             </table>
         )
     }
