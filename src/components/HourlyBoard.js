@@ -81,10 +81,10 @@ class HourlyBoard extends Component {
                 (hourly, i) => {
                     let accumulation = 0;
                     if ('rain' in hourly) {
-                        accumulation += hourly.rain;
+                        accumulation += hourly.rain['1h'];
                     }
                     if ('snow' in hourly) {
-                        accumulation += hourly.snow
+                        accumulation += hourly.snow['1h'];
                     }
                     return <td key={i}>{accumulation} mm</td>
                 }
