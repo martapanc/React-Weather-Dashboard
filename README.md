@@ -19,6 +19,7 @@ Live app: https://weather-forecast-dashboard.web.app/
 ```
 REACT_APP_API_KEY=<your OpenWeather API KEY>
 ```
+Do not forget to prepend 'REACT_API_' to any key, or the dotenv library will not be able to read it correctly.
 - Edit `src/constants.js` to set the preferred configuration
 
 The project can be run using 
