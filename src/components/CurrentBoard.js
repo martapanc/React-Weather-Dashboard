@@ -98,7 +98,7 @@ class CurrentBoard extends Component {
                             <td className="legend top" style={{paddingLeft: "15px"}}>sunrise</td>
                             <td className="top">
                                 <span style={{float: 'left', marginLeft: '10px'}}>
-                                    <span id="currentHumidity">{daily.sunrise}  🌅</span>
+                                    <span id="currentHumidity">{daily.sunrise}</span>
                                 </span>
                             </td>
                         </tr>
@@ -123,7 +123,7 @@ class CurrentBoard extends Component {
                                 style={{paddingLeft: "15px"}}>sunset
                             </td>
                             <td id="sunset" className="observations">
-                                <span style={{float: 'left', marginLeft: '10px'}}>{daily.sunset}  🌆</span>
+                                <span style={{float: 'left', marginLeft: '10px'}}>{daily.sunset}</span>
                             </td>
                         </tr>
                         </tbody>
