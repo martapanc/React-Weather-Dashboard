@@ -41,7 +41,7 @@ class Dashboard extends Component {
                         hourly: result.hourly,
                         daily: result.daily
                     });
-                    this.intervalID = setTimeout(this.fetchData.bind(this), Config.refresh);
+                    this.intervalID = setTimeout(this.fetchData.bind(this), Config.refreshRate);
                 },
                 (error) => {
                     this.setState({

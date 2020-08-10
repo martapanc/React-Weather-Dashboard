@@ -1,9 +1,13 @@
+import React from "react";
+import {Units} from "../constants";
+
 export function getDegreeSymbol(unit) {
     switch (unit) {
-        case 'metric':
+        case Units.METRIC:
             return '°C';
-        case 'imperial':
+        case Units.IMPERIAL:
             return '°F';
+        case Units.DEFAULT:
         default:
             return 'K';
     }
@@ -11,12 +15,19 @@ export function getDegreeSymbol(unit) {
 
 export function getWindSpeedSymbol(unit) {
     switch (unit) {
-        case 'imperial':
+        case Units.IMPERIAL:
             return ' mph';
-        case 'metric':
+        case 'metric_kmh':
+            return ' km/h'
+        case Units.METRIC:
+        case Units.DEFAULT:
         default:
             return ' m/s';
     }
+}
+
+export function getWindSpeedInKmh(daily) {
+    return <>{Math.round(daily.wind_speed * 3.6)} {getWindSpeedSymbol('metric_kmh')}</>;
 }
 
 export function getPercentage(percentage) {

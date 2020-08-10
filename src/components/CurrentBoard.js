@@ -1,8 +1,7 @@
 import React, {Component} from "react";
 import {Config, IconMap} from "../constants";
 import DateTimeSection from "./DateTimeSection";
-import {getPercentage, getDegreeSymbol, getWindSpeedSymbol} from "../utils/measureHelper";
-import humidity from "../assets/symbols/humidity.svg";
+import {getPercentage, getDegreeSymbol, getWindSpeedInKmh} from "../utils/measureHelper";
 
 class CurrentBoard extends Component {
     constructor(props) {
@@ -51,9 +50,7 @@ class CurrentBoard extends Component {
     }
 
     getFormattedWindSpeed(current) {
-        return <span>
-            {Math.round(current.wind_speed) + getWindSpeedSymbol(Config.units)}
-        </span>
+        return <span>{getWindSpeedInKmh(current)}</span>
     }
 
     getWindDegStyle(wind_deg) {

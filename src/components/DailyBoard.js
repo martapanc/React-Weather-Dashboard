@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {Config, IconMap} from "../constants";
-import {getDegreeSymbol, getPercentage, getWindSpeedSymbol} from "../utils/measureHelper";
+import {getDegreeSymbol, getPercentage, getWindSpeedInKmh} from "../utils/measureHelper";
 
 class DailyBoard extends Component {
     constructor(props) {
@@ -78,7 +78,7 @@ class DailyBoard extends Component {
             .map(
                 (daily, i) => {
                     return <td key={i}>
-                        {Math.round(daily.wind_speed)} {getWindSpeedSymbol(Config.units)}
+                        {getWindSpeedInKmh(daily)}
                         <span className="wind" style={{transform: `rotate(${daily.wind_deg}deg)`}}>↑</span>
                     </td>
                 }

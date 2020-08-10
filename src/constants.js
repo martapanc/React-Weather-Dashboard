@@ -19,17 +19,29 @@ import unknown from './assets/icons/unknown.svg';
 
 require('dotenv').config();
 
+export const Units = {
+    METRIC: 'metric',
+    IMPERIAL: 'imperial',
+    DEFAULT: 'default'
+}
+
 export const Config = {
     api_key: process.env.REACT_APP_API_KEY,
     latitude: 53.480720,
     longitude: -2.240810,
     locale: 'en-GB',
-    units: 'metric', //default, metric, imperial
-    refresh: 10 * 60 * 1000, //milliseconds
+    units: Units.METRIC,
+    refreshRate: 10 * 60 * 1000, //milliseconds
 };
 
+const Themes = {
+    BLUE: 'blue',
+    BLACK: 'black',
+    WHITE: 'white'
+}
+
 export const Appearance = {
-    theme: 'blue' // "blue", "black", "white"
+    theme: Themes.BLUE
 };
 
 export const IconMap = {
