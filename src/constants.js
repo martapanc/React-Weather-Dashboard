@@ -105,7 +105,10 @@ export const IconMap = {
     notFound: unknown
 };
 
-const api_url_ow = `https://api.openweathermap.org/data/2.5/onecall?APPID=${Config.api_key}&lat=${Config.latitude}&lon=${Config.longitude}&units=${Config.units}`;
+const parameters = `&lat=${Config.latitude}&lon=${Config.longitude}&units=${Config.units}`;
+
+const api_url_ow = `https://api.openweathermap.org/data/2.5/onecall?APPID=${Config.api_key}${parameters}`;
+const api_url_proxy = `https://weather-forecast-proxy-api.herokuapp.com/onecall?${parameters}`
 const api_url_test = 'http://localhost:8082';
 
-export const api_url = api_url_ow;
+export const api_url = api_url_proxy;
