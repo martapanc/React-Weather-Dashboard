@@ -1,9 +1,11 @@
 import React, {Component} from "react";
-import {api_url, Config} from "./constants" ;
+import {api_url, api_url_alerts, Config} from "./constants" ;
 import ScrollingAlerts from "./components/ScrollingAlerts";
 import CurrentBoard from "./components/CurrentBoard";
 import HourlyBoard from "./components/HourlyBoard";
 import DailyBoard from "./components/DailyBoard";
+
+const headers = {headers: new Headers({'Authorization': 'Bearer ' + Config.token})};
 
 class Dashboard extends Component {
 
@@ -13,6 +15,7 @@ class Dashboard extends Component {
             error: null,
             isLoaded: false,
             hasAlerts: false,
+            alertsTitle: null,
             alerts: [],
             current: null,
             hourly: null,
@@ -22,6 +25,7 @@ class Dashboard extends Component {
 
     componentDidMount() {
         this.fetchData();
+        this.fetchAlerts();
     }
 
     componentWillUnmount() {
@@ -29,14 +33,12 @@ class Dashboard extends Component {
     }
 
     fetchData = () => {
-        fetch(api_url)
+        fetch(api_url, headers)
             .then(res => res.json())
             .then(
                 (result) => {
                     this.setState({
                         isLoaded: true,
-                        hasAlerts: true,
-                        alerts: ["It's the end of the world as we know it"],
                         current: result.current,
                         hourly: result.hourly,
                         daily: result.daily
@@ -52,8 +54,31 @@ class Dashboard extends Component {
             )
     };
 
+    fetchAlerts = () => {
+        fetch(api_url_alerts, headers)
+            .then(res => res.json())
+            .then(
+                (result) => {
+                    this.setState({
+                        hasAlerts: result.alerts.length > 0,
+                        alerts: this.formatAlerts(result.alerts),
+                        alertsTitle: "Alerts for " + result.city_name
+                    });
+                    this.intervalID = setTimeout(this.fetchData.bind(this), Config.refreshRate);
+                }
+            )
+    }
+
+    formatAlerts(alerts) {
+        let alertList = [];
+        alerts.forEach((alert) => {
+            alertList.push("[" + alert.title + " - " + alert.severity + "] " + alert.description)
+        });
+        return alertList;
+    }
+
     render() {
-        const {error, isLoaded, hasAlerts, alerts, current, hourly, daily} = this.state;
+        const {error, isLoaded, hasAlerts, alerts, alertsTitle, current, hourly, daily} = this.state;
 
         if (error) {
             return <div>Error contacting API</div>
@@ -61,7 +86,7 @@ class Dashboard extends Component {
             return <div>Fetching results...</div>
         } else
             return <div>
-                <ScrollingAlerts hasAlerts={hasAlerts} alerts={alerts}/>
+                <ScrollingAlerts hasAlerts={hasAlerts} alerts={alerts} alertsTitle={alertsTitle}/>
                 <CurrentBoard current={current} daily={daily[0]}/>
                 <HourlyBoard hourlyForecast={hourly}/>
                 <DailyBoard dailyForecast={daily}/>

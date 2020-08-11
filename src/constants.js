@@ -27,6 +27,7 @@ export const Units = {
 
 export const Config = {
     api_key: process.env.REACT_APP_API_KEY,
+    token: process.env.REACT_APP_PROXY,
     latitude: 53.480720,
     longitude: -2.240810,
     locale: 'en-GB',
@@ -106,9 +107,10 @@ export const IconMap = {
 };
 
 const parameters = `&lat=${Config.latitude}&lon=${Config.longitude}&units=${Config.units}`;
+const api_domain = `https://weather-forecast-proxy-api.herokuapp.com`;
 
-const api_url_ow = `https://api.openweathermap.org/data/2.5/onecall?APPID=${Config.api_key}${parameters}`;
-const api_url_proxy = `https://weather-forecast-proxy-api.herokuapp.com/onecall?${parameters}`
+const api_url_proxy = `${api_domain}/onecall?${parameters}`
 const api_url_test = 'http://localhost:8082';
 
 export const api_url = api_url_proxy;
+export const api_url_alerts = `https://weather-forecast-proxy-api.herokuapp.com/alerts?${parameters}`

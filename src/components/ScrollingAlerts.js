@@ -7,13 +7,14 @@ class ScrollingAlerts extends Component {
         super(props);
         this.state = {
             hasAlerts: this.props.hasAlerts,
-            alerts: this.props.alerts
+            alerts: this.props.alerts,
+            alertsTitle: this.props.alertsTitle
         }
     }
 
     render() {
-        const {hasAlerts, alerts} = this.state;
-        return hasAlerts && <div id="alerts" className="marquee">{alerts[0]}</div>
+        const {hasAlerts, alerts, alertsTitle} = this.state;
+        return hasAlerts && <div id="alerts" className="marquee"><strong>{alertsTitle}</strong>: {alerts}</div>
     }
 }
 
