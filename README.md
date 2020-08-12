@@ -5,6 +5,8 @@ React implementation of a weather dashboard, inspired by [Weather-Dashboard-Fore
 
 Live app: https://weather-forecast-dashboard.web.app/ (hosted on Firebase)
 
+The dashboard doesn't query the APIs directly but uses a [middleware API](https://github.com/martapanc/weather-forecast-proxy-api/blob/master/app.py), which acts as a proxy between the client app and the APIs, in order to avoid overloading the latter with requests. 
+
 ---
 #### Blue theme
 <img src="src/assets/samples/Screenshot_1.png" width="100%" alt="Screenshot 1"/>
