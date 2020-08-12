@@ -1,9 +1,9 @@
 # Weather Dashboard
 
 React implementation of a weather dashboard, inspired by [Weather-Dashboard-Forecast](https://github.com/vlaine/Weather-Forecast-Dashboard) by @vlaine, after I got extremely disappointed discovering that [DarkSky API](https://darksky.net/dev) will be acquired by Apple soon and is no more accepting dev applications (can't believe the timing 🙄 ).
-<br/>Using [OpenWeather API](https://home.openweathermap.org/) instead.
+<br/>Using [OpenWeather API](https://home.openweathermap.org/) instead, with some tweaks, and [WeatherBit](https://www.weatherbit.io/) for the live alerts.
 
-Live app: https://weather-forecast-dashboard.web.app/
+Live app: https://weather-forecast-dashboard.web.app/ (hosted on Firebase)
 
 ---
 #### Blue theme
